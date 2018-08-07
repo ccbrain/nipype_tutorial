@@ -134,6 +134,9 @@ RUN export PATH="/opt/miniconda-latest/bin:$PATH" \
     && sync \
     && sed -i '$isource activate neuro' $ND_ENTRYPOINT
 
+RUN conda update conda; conda install --yes --quiet numpy setuptools numpy scipy matplotlib scikit-learn nose h5py PIL pyside; pip install -q nibabel boto https://github.com/mne-tools/mne-python/archive/master.zip
+RUN git clone --depth=1 https://github.com/mne-tools/mne-tools.github.io; mv mne-tools.github.io/dev/_downloads/*.ipynb .; rm -Rf mne-tools.github.io
+
 RUN bash -c 'source activate neuro && jupyter nbextension enable exercise2/main && jupyter nbextension enable spellchecker/main'
 
 USER root
