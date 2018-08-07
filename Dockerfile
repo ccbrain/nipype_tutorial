@@ -163,13 +163,6 @@ USER neuro
 
 RUN mkdir -p ~/.jupyter && echo c.NotebookApp.ip = \"0.0.0.0\" > ~/.jupyter/jupyter_notebook_config.py
 
-# Install dependencies and MNE master
-RUN conda update conda; conda install --yes --quiet numpy setuptools numpy scipy matplotlib scikit-learn nose h5py PIL pyside; pip install -q nibabel boto https://github.com/mne-tools/mne-python/archive/master.zip
-
-# Download data
-RUN ipython -c "import mne; print(mne.datasets.sample.data_path(verbose=False))"
-
-
 WORKDIR /home/neuro/nipype_tutorial
 
 CMD ["jupyter-notebook"]
